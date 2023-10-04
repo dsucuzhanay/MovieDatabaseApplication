@@ -1,0 +1,15 @@
+﻿@using MovieDatabase.Views.Shared.Components.SearchBar
+@model SearchPager
+
+<div class="container m-0 p-0 btn-group" style="background-color:white; border-radius:10px; height:45px; color:black;">
+    <div class="col-4 btn-group p-1 justify-content-end m-1">
+        <p>
+            Showing @Model.StartRecord to @Model.EndRecord of @Model.TotalItems Rows
+        </p>
+    </div>
+    <div class="col-5 btn-group justify-content-end mt-1">
+        <p>
+            Showing @Model.CurrentPage / @Model.TotalPages Pages
+        </p>
+    </div>
+</div>

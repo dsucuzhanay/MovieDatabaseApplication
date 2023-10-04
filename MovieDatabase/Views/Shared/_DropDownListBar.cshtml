@@ -1,0 +1,18 @@
+﻿@model GenreModel
+
+<div class="container btn-group">
+
+    <div class="col-4 p-0 justify-content-end">
+        <form asp-controller="@Model.Controller" asp-action="@Model.Action">
+            <span class="btn-group">
+                @Html.DropDownListFor(g => g.GenreId, new SelectList(@Model.GenreList, "Value", "Text"), new{@class="form-control"})
+                <input class="btn btn-sm btn-primary" type="submit" value="Search" />
+            </span>
+        </form>
+    </div>
+
+    <div class="container">
+
+    </div>
+</div>
+<br />

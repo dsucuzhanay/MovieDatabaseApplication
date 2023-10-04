@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MovieDatabase.Models.UserModel>
+
+@{
+    ViewData["Title"] = "Users Same Taste";
+}
+
+<style>
+    ul.special {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        height: 20em;
+    }
+
+        ul.special li {
+            height: 2em;
+        }
+</style>
+
+<h1>@ViewBag.NumberSimilarUsers Users with the same taste</h1>
+<br />
+
+<div class="container btn-group">
+
+    <div class="col-4 p-0 justify-content-end">
+        <form asp-controller="User" asp-action="Index">
+            <span class="btn-group">
+                <input class="form-control" type="number" name="SearchText" value="@ViewBag.SearchText" placeholder="User Id" />
+                <input class="btn btn-sm btn-primary " type="submit" value="Search" />
+            </span>
+        </form>
+    </div>
+
+</div>
+<br />
+<br />
+
+@if (Model.Count() > 0)
+{
+    <b>
+        @Html.DisplayNameFor(model => model.UserId)
+    </b>
+    <br />
+    <br />
+}
+
+<ul class="special">
+    @foreach (var item in Model)
+    {
+        <li>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </li>
+    }
+</ul>

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<MovieDatabase.Models.MovieModel>
+
+@{
+    ViewData["Title"] = "Top Movies";
+    var num = 0;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    i {
+        color: #EEBD01;
+    }
+</style>
+
+<h1>Top @ViewBag.Top Movies</h1>
+<br />
+
+<partial name="_DropDownListBar" model="@ViewBag.GenreModel" />
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="text-align: center">
+                Number
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th style="text-align: center">
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th style="text-align: center">
+                @Html.DisplayNameFor(model => model.ImdbId)
+            </th>
+            <th style="text-align: center">
+                @Html.DisplayNameFor(model => model.TmdbId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align: center">
+                    @{
+                        num++;
+                    }
+                    @num
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td style="text-align: center">
+                    <div>
+                        <span class="start_rate">
+                            @{
+                                var n = Convert.ToInt32(Math.Truncate(item.Rating));
+                                var d = item.Rating - Math.Truncate(item.Rating);
+
+                                for (int i = 1; i <= n; i++)
+                                {
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                }
+                                if (d > 0)
+                                {
+                                    n++;
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                }
+                                for (int i = n; i < 5; i++)
+                                {
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                }
+                            }
+                        </span>
+                    </div>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td style="text-align: center">
+                    @{
+                        var url = "http://www.imdb.com/title/tt" + item.ImdbId;
+                        <a href=@url>
+                            <input type="button" class="btn btn-primary" value="Imdb">
+                        </a>
+                    }
+                </td>
+                <td style="text-align: center">
+                    @{
+                        url = "https://www.themoviedb.org/movie/" + item.TmdbId;
+                        <a href=@url>
+                            <input type="button" class="btn btn-primary" value="Tmdb">
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,53 @@
+﻿@using MovieDatabase.Views.Shared.Components.SearchBar
+@model SearchPager
+
+<div class="container btn-group">
+
+    <div class="col-4 p-0 justify-content-end">
+        <form asp-controller="@Model.Controller" asp-action="@Model.Action">
+            <span class="btn-group">
+                <input class="form-control" type="text" name="SearchText" value="@Model.SearchText" placeholder="Search by Title" />
+                <input class="btn btn-sm btn-primary " type="submit" value="Search" />
+            </span>
+        </form>
+    </div>
+
+    <div class="container">
+        @if (Model.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-end">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                   asp-route-pg="1" asp-route-SearchText="@Model.SearchText">First</a>
+                    </li>
+                    <li>
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                   asp-route-pg="@(Model.CurrentPage - 1)" asp-route-SearchText="@Model.SearchText">Previous</a>
+                    </li>
+                }
+
+                @for (var pg = Model.StartPage; pg <= Model.EndPage; pg++)
+                {
+                    <li class="page-item @(pg == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                   asp-route-pg="@pg" asp-route-SearchText="@Model.SearchText">@pg</a>
+                    </li>
+                }
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                   asp-route-pg="@(Model.CurrentPage + 1)" asp-route-SearchText="@Model.SearchText">Next</a>
+                    </li>
+                    <li>
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                   asp-route-pg="@(Model.TotalPages)" asp-route-SearchText="@Model.SearchText">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
